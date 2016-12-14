@@ -1,0 +1,13 @@
+{
+  "name": "HollidayManager App",
+  "version": "1.0.0",
+  "description": "The user application of the HollidayManager system",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^1.4.1",
+    "electron-packager": "^8.4.0"
+  }
+}
