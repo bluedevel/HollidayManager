@@ -4,7 +4,8 @@
   "description": "The user application of the HollidayManager system",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package": "./node/node ./node_modules/electron-packager/cli.js . HollidayManager --platform=darwin --arch=x64"
   },
   "devDependencies": {
     "electron": "^1.4.1",

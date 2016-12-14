@@ -199,4 +199,7 @@ local.properties
 .idea/
 *.iml
 
+standalone-app/node
 standalone-app/node_modules
+standalone-app/HollidayManager*
+standalone-app/etc
