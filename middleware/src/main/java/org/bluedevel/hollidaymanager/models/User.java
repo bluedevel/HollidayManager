@@ -1,7 +1,5 @@
 package org.bluedevel.hollidaymanager.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -31,7 +29,6 @@ public class User {
     private Department department;
 
     @NotNull
-    @ManyToOne
     private Role role;
 
     @NotNull
@@ -42,7 +39,7 @@ public class User {
 
     // Each user has its own default week of workdays, which can be changed
     @NotNull
-    private WorkdayDefinition workdayDefinition;
+    private UserWorkdayDefinition userWorkdayDefinition;
 
     public long getId() {
         return id;
@@ -104,12 +101,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public WorkdayDefinition getWorkdayDefinition() {
-        return workdayDefinition;
+    public UserWorkdayDefinition getUserWorkdayDefinition() {
+        return userWorkdayDefinition;
     }
 
-    public void setWorkdayDefinition(WorkdayDefinition workdayDefinition) {
-        this.workdayDefinition = workdayDefinition;
+    public void setUserWorkdayDefinition(UserWorkdayDefinition userWorkdayDefinition) {
+        this.userWorkdayDefinition = userWorkdayDefinition;
     }
 
 }

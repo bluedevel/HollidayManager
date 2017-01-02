@@ -39,9 +39,6 @@ public class Holliday {
     @NotNull
     private User user;
 
-    // One holliday can have many exceptions -> OneToMany, unidirectional
-    private Set<WorkdayException> workdayExceptions = new HashSet<WorkdayException>();
-
     public long getId() {
         return id;
     }
@@ -92,14 +89,6 @@ public class Holliday {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Set<WorkdayException> getWorkdayExceptions() {
-        return workdayExceptions;
-    }
-
-    public void setWorkdayExceptions(Set<WorkdayException> workdayExceptions) {
-        this.workdayExceptions = workdayExceptions;
     }
 
 }
