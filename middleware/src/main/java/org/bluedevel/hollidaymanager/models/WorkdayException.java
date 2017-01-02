@@ -45,32 +45,4 @@ public class WorkdayException {
         this.to = to;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        WorkdayException that = (WorkdayException) o;
-
-        if (id != that.id) return false;
-        if (!from.equals(that.from)) return false;
-        return to.equals(that.to);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + from.hashCode();
-        result = 31 * result + to.hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "WorkdayException{" +
-                "id=" + id +
-                ", from=" + from +
-                ", to=" + to +
-                '}';
-    }
 }

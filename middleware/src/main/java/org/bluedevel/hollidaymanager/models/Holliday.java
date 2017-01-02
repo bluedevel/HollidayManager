@@ -29,6 +29,12 @@ public class Holliday {
     @NotNull
     private boolean approved;
 
+    @NotNull
+    private boolean startsWithHalfDay;
+
+    @NotNull
+    private boolean endsWithHalfDay;
+
     @ManyToOne
     @NotNull
     private User user;
@@ -64,6 +70,22 @@ public class Holliday {
         this.approved = approved;
     }
 
+    public boolean isStartsWithHalfDay() {
+        return startsWithHalfDay;
+    }
+
+    public void setStartsWithHalfDay(boolean startsWithHalfDay) {
+        this.startsWithHalfDay = startsWithHalfDay;
+    }
+
+    public boolean isEndsWithHalfDay() {
+        return endsWithHalfDay;
+    }
+
+    public void setEndsWithHalfDay(boolean endsWithHalfDay) {
+        this.endsWithHalfDay = endsWithHalfDay;
+    }
+
     public User getUser() {
         return user;
     }
@@ -80,41 +102,4 @@ public class Holliday {
         this.workdayExceptions = workdayExceptions;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Holliday holliday = (Holliday) o;
-
-        if (id != holliday.id) return false;
-        if (approved != holliday.approved) return false;
-        if (from != null ? !from.equals(holliday.from) : holliday.from != null) return false;
-        if (to != null ? !to.equals(holliday.to) : holliday.to != null) return false;
-        if (user != null ? !user.equals(holliday.user) : holliday.user != null) return false;
-        return workdayExceptions.equals(holliday.workdayExceptions);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (from != null ? from.hashCode() : 0);
-        result = 31 * result + (to != null ? to.hashCode() : 0);
-        result = 31 * result + (approved ? 1 : 0);
-        result = 31 * result + (user != null ? user.hashCode() : 0);
-        result = 31 * result + workdayExceptions.hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Holliday{" +
-                "id=" + id +
-                ", from=" + from +
-                ", to=" + to +
-                ", approved=" + approved +
-                ", user=" + user +
-                ", workdayExceptions=" + workdayExceptions +
-                '}';
-    }
 }
