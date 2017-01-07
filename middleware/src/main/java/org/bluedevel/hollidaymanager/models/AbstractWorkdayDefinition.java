@@ -1,17 +1,17 @@
 package org.bluedevel.hollidaymanager.models;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by Nightcrawler on 02.01.2017.
  */
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 abstract class AbstractWorkdayDefinition {
 
+    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @NotNull
@@ -38,6 +38,8 @@ abstract class AbstractWorkdayDefinition {
     public long getId() {
         return id;
     }
+
+    public void setId(int id) { this.id = id; }
 
     public boolean isMonday() {
         return monday;

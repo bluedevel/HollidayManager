@@ -11,16 +11,20 @@ import javax.validation.constraints.NotNull;
 public class User {
 
     @Id
+    @Column(name = "USER_ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     @NotNull
+    @Column(name = "USERNAME")
     private String userName;
 
     @NotNull
+    @Column(name = "PASSWORD")
     private String pswd;
 
     @NotNull
+    @Column(name = "VACATION_DAYS")
     private int vacationDays;
 
     @NotNull
@@ -29,15 +33,19 @@ public class User {
     private Department department;
 
     @NotNull
+    @Column(name = "ROLE")
     private Role role;
 
     @NotNull
+    @Column(name = "FIRST_NAME")
     private String firstName;
 
     @NotNull
+    @Column(name = "LAST_NAME")
     private String lastName;
 
-    // Each user has its own default week of workdays, which can be changed
+    @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+    @JoinColumn(name="USER_WORKDAY_DEFINITION", referencedColumnName="id")
     @NotNull
     private UserWorkdayDefinition userWorkdayDefinition;
 
