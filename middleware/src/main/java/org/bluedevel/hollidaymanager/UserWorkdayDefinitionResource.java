@@ -4,10 +4,12 @@ import org.bluedevel.hollidaymanager.models.UserWorkdayDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by Nightcrawler on 03.01.2017.
  */
+@RestController
 public class UserWorkdayDefinitionResource {
 
     @Autowired

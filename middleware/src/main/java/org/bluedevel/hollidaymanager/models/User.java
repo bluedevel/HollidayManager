@@ -44,8 +44,8 @@ public class User {
     @Column(name = "LAST_NAME")
     private String lastName;
 
+    //@JoinColumn(name="USER_WORKDAY_DEFINITION", referencedColumnName="id")
     @OneToOne(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-    @JoinColumn(name="USER_WORKDAY_DEFINITION", referencedColumnName="id")
     @NotNull
     private UserWorkdayDefinition userWorkdayDefinition;
 
