@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class HollidaymanagerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(HollidaymanagerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(HollidaymanagerApplication.class, args);
+    }
 }

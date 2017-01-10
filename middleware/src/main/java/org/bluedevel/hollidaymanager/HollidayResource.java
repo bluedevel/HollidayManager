@@ -16,12 +16,12 @@ public class HollidayResource {
     private HollidayDao hollidayDao;
 
     @RequestMapping(path = "/holliday/all")
-    public Iterable<Holliday> getAllHollidays(){
+    public Iterable<Holliday> getAllHollidays() {
         return hollidayDao.findAll();
     }
 
     @RequestMapping(path = "/holliday")
-    public Holliday getHollidayById(@RequestParam("id") Long id){
+    public Holliday getHollidayById(@RequestParam("id") Long id) {
         return hollidayDao.findOne(id);
     }
 }

@@ -16,12 +16,12 @@ public class DepartmentResource {
     private DepartmentDao departmentDao;
 
     @RequestMapping(path = "/department/all")
-    public Iterable<Department> getAllDepartments(){
+    public Iterable<Department> getAllDepartments() {
         return departmentDao.findAll();
     }
 
     @RequestMapping(path = "/department")
-    public Department getDepartmentById(@RequestParam("id") Long id){
+    public Department getDepartmentById(@RequestParam("id") Long id) {
         return departmentDao.findOne(id);
     }
 }

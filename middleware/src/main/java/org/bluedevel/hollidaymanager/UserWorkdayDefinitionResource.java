@@ -16,12 +16,12 @@ public class UserWorkdayDefinitionResource {
     private UserWorkdayDefinitionDao userWorkdayDefinitionDao;
 
     @RequestMapping(path = "/userWorkdayDefinition/all")
-    public Iterable<UserWorkdayDefinition> getAllUserWorkdayDefinitions(){
+    public Iterable<UserWorkdayDefinition> getAllUserWorkdayDefinitions() {
         return userWorkdayDefinitionDao.findAll();
     }
 
     @RequestMapping(path = "/userWorkdayDefinition")
-    public UserWorkdayDefinition getUserWorkdayDefinitionById(@RequestParam("id") Long id){
+    public UserWorkdayDefinition getUserWorkdayDefinitionById(@RequestParam("id") Long id) {
         return userWorkdayDefinitionDao.findOne(id);
     }
 }

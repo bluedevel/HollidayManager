@@ -1,6 +1,9 @@
 package org.bluedevel.hollidaymanager.models;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -39,7 +42,9 @@ abstract class AbstractWorkdayDefinition {
         return id;
     }
 
-    public void setId(int id) { this.id = id; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public boolean isMonday() {
         return monday;
