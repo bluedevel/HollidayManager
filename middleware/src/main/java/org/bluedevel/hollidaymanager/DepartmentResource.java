@@ -2,8 +2,8 @@ package org.bluedevel.hollidaymanager;
 
 import org.bluedevel.hollidaymanager.models.Department;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -15,13 +15,13 @@ public class DepartmentResource {
     @Autowired
     private DepartmentDao departmentDao;
 
-    @RequestMapping(path = "/department/all")
+    @RequestMapping(path = "/departments")
     public Iterable<Department> getAllDepartments() {
         return departmentDao.findAll();
     }
 
-    @RequestMapping(path = "/department")
-    public Department getDepartmentById(@RequestParam("id") Long id) {
+    @RequestMapping(path = "/departments/{id}")
+    public Department getDepartmentById(@PathVariable("id") Long id) {
         return departmentDao.findOne(id);
     }
 }
