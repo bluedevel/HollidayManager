@@ -3,9 +3,6 @@ package org.bluedevel.hollidaymanager.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Nightcrawler on 20.12.2016.
@@ -20,11 +17,11 @@ public class Holliday {
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    private Calendar from;
+    private Calendar start;
 
     @NotNull
     @Temporal(TemporalType.DATE)
-    private Calendar to;
+    private Calendar end;
 
     @NotNull
     private boolean approved;
@@ -43,20 +40,20 @@ public class Holliday {
         return id;
     }
 
-    public Calendar getFrom() {
-        return from;
+    public Calendar getStart() {
+        return start;
     }
 
-    public void setFrom(Calendar from) {
-        this.from = from;
+    public void setStart(Calendar start) {
+        this.start = start;
     }
 
-    public Calendar getTo() {
-        return to;
+    public Calendar getEnd() {
+        return end;
     }
 
-    public void setTo(Calendar to) {
-        this.to = to;
+    public void setEnd(Calendar end) {
+        this.end = end;
     }
 
     public boolean isApproved() {
