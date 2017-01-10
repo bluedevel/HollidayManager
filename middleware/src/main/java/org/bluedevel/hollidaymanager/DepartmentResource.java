@@ -25,4 +25,25 @@ public class DepartmentResource {
         return departmentDao.findOne(id);
     }
 
+    @RequestMapping(path = "/departments/add")
+    public void setDepartment(Department department) {
+        departmentDao.save(department);
+    }
+
+    @RequestMapping(path = "/departments/{id}/delete")
+    public void deleteOneDepartment(@PathVariable("id") Long id) {
+        departmentDao.delete(id);
+    }
+
+    @RequestMapping(path = "/departments/delete")
+    public void deleteAllDepartments() {
+        departmentDao.deleteAll();
+    }
+
+    @RequestMapping(path = "/departments/count")
+    public Long countDepartments() {
+        return departmentDao.count();
+    }
+
+
 }
