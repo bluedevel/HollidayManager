@@ -24,4 +24,5 @@ public class DepartmentResource {
     public Department getDepartmentById(@PathVariable("id") Long id) {
         return departmentDao.findOne(id);
     }
+
 }
