@@ -27,11 +27,11 @@ public class User {
 
     @NotNull
     @Column(name = "USERNAME")
-    private String userName;
+    private String username;
 
     @NotNull
     @Column(name = "PASSWORD")
-    private String pswd;
+    private String password;
 
     @NotNull
     @Column(name = "VACATION_DAYS")
@@ -63,20 +63,20 @@ public class User {
         return id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getPswd() {
-        return pswd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPswd(String pswd) {
-        this.pswd = pswd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getVacationDays() {

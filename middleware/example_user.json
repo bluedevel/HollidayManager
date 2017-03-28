@@ -1,0 +1,11 @@
+{
+  "username": "hans",
+  "password": "megasecure",
+  "role": "USER",
+  "vacationDays": 25,
+  "department": {
+    "name": "Katzen"
+  },
+  "firstName": "Helga",
+  "lastName": "Geröllheimer"
+}
