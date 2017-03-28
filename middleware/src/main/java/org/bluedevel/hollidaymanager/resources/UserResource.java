@@ -25,6 +25,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
  * @author Robin Engel
  */
 @RestController
+@RequestMapping(path = "/users")
 public class UserResource {
 
     private final UserDao userDao;
@@ -36,12 +37,12 @@ public class UserResource {
         this.departmentDao = departmentDao;
     }
 
-    @RequestMapping(path = "/users/{name}", method = GET)
+    @RequestMapping(path = "/{name}", method = GET)
     public User getUser(@PathVariable("name") String name) {
         return userDao.findByUsername(name);
     }
 
-    @RequestMapping(path = "/users", method = PUT)
+    @RequestMapping(method = PUT)
     public void addUser(@RequestBody User user) throws DepartmentNotFoundExecption {
         String departmentName = Optional.ofNullable(user.getDepartment())
                 .map(Department::getName)
