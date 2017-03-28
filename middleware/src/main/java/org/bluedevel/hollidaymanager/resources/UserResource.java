@@ -27,11 +27,14 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 @RestController
 public class UserResource {
 
-    @Autowired
-    private UserDao userDao;
+    private final UserDao userDao;
+    private final DepartmentDao departmentDao;
 
     @Autowired
-    private DepartmentDao departmentDao;
+    public UserResource(UserDao userDao, DepartmentDao departmentDao) {
+        this.userDao = userDao;
+        this.departmentDao = departmentDao;
+    }
 
     @RequestMapping(path = "/users/{name}", method = GET)
     public User getUser(@PathVariable("name") String name) {
