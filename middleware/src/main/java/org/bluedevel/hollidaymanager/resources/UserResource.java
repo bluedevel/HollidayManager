@@ -35,7 +35,7 @@ public class UserResource {
 
     @RequestMapping(path = "/users/{name}", method = GET)
     public User getUser(@PathVariable("name") String name) {
-        return null;
+        return userDao.findByUsername(name);
     }
 
     @RequestMapping(path = "/users", method = PUT)

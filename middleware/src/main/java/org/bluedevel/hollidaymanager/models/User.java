@@ -1,5 +1,7 @@
 package org.bluedevel.hollidaymanager.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,13 +13,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by Nightcrawler on 20.12.2016.
  */
 @Entity
-@Table(name = "users")
+@Table(name = "users",
+        uniqueConstraints = @UniqueConstraint(
+                columnNames = {"USER_ID", "USERNAME"}))
 public class User {
 
     @Id
@@ -31,6 +36,7 @@ public class User {
 
     @NotNull
     @Column(name = "PASSWORD")
+    @JsonIgnore
     private String password;
 
     @NotNull
