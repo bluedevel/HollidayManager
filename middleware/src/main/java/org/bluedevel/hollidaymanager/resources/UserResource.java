@@ -2,11 +2,15 @@ package org.bluedevel.hollidaymanager.resources;
 
 import org.apache.commons.lang3.StringUtils;
 import org.bluedevel.hollidaymanager.DepartmentDao;
+import org.bluedevel.hollidaymanager.PasswordHasher;
 import org.bluedevel.hollidaymanager.UserDao;
 import org.bluedevel.hollidaymanager.models.Department;
 import org.bluedevel.hollidaymanager.models.User;
 import org.bluedevel.hollidaymanager.resources.exceptions.DepartmentNotFoundExecption;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,57 +18,68 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 /**
  * @author Robin Engel
  */
 @RestController
-@RequestMapping(path = "/users")
+@RequestMapping("/users")
 public class UserResource {
+
+    //TODO use lombok here {@Slf4j}
+    private final Logger log = LoggerFactory.getLogger(UserResource.class);
+
+    @Value("${hollidaymanager.security.passwords.algorithm}")
+    private String algorithm;
 
     private final UserDao userDao;
     private final DepartmentDao departmentDao;
+    private final PasswordHasher hasher;
 
     @Autowired
-    public UserResource(UserDao userDao, DepartmentDao departmentDao) {
+    public UserResource(UserDao userDao, DepartmentDao departmentDao, PasswordHasher hasher) {
         this.userDao = userDao;
         this.departmentDao = departmentDao;
+        this.hasher = hasher;
     }
 
-    @RequestMapping(path = "/{name}", method = GET)
+    @RequestMapping("/{name}")
     public User getUser(@PathVariable("name") String name) {
         return userDao.findByUsername(name);
     }
 
     @RequestMapping(method = PUT)
-    public void addUser(@RequestBody User user) throws DepartmentNotFoundExecption {
+    public void addUser(@RequestBody User user) throws DepartmentNotFoundExecption, NoSuchAlgorithmException {
         String departmentName = Optional.ofNullable(user.getDepartment())
                 .map(Department::getName)
-                .filter(StringUtils::isEmpty)
+                .filter(StringUtils::isNotEmpty)
                 .orElseThrow(DepartmentNotFoundExecption::new);
 
-        Department existingDepartment = departmentDao
-                .findByName(departmentName)
-                .findFirst()
+        Department existingDepartment = Optional.of(departmentDao
+                .findByName(departmentName))
                 .orElseThrow(DepartmentNotFoundExecption::new);
 
         user.setDepartment(existingDepartment);
+
+        //TODO handle IllegalArgument correctly
+        user.setPassword(hasher.hash(user.getPassword()));
+
         userDao.save(user);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleException(Exception e) {
-        return new ResponseEntity<>(e, INTERNAL_SERVER_ERROR);
+    @ExceptionHandler(NoSuchAlgorithmException.class)
+    public ResponseEntity<?> handleNoSuchAlgorithmException() {
+        return new ResponseEntity<>("Unable to find hash algorithm " + algorithm, INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(DepartmentNotFoundExecption.class)
-    public ResponseEntity<?> handleDepartmentNotFound(Exception e) {
+    public ResponseEntity<?> handleDepartmentNotFound() {
         return new ResponseEntity<>("Department not found", NOT_FOUND);
     }
 }
