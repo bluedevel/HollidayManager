@@ -1,50 +1,17 @@
-package org.bluedevel.hollidaymanager.models;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.validation.constraints.NotNull;
+package org.bluedevel.hollidaymanager.resources.dto;
 
 /**
- * Created by Nightcrawler on 02.01.2017.
+ * @author Robin Engel
  */
-@Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class AbstractWorkdayDefinition {
+public class WorkdayDefinitionDto {
 
-    //@GeneratedValue(strategy = GenerationType.AUTO)
-    @Id
-    private long id;
-
-    @NotNull
     private boolean monday;
-
-    @NotNull
     private boolean tuesday;
-
-    @NotNull
     private boolean wednesday;
-
-    @NotNull
     private boolean thursday;
-
-    @NotNull
     private boolean friday;
-
-    @NotNull
     private boolean saturday;
-
-    @NotNull
     private boolean sunday;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public boolean isMonday() {
         return monday;

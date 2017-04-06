@@ -6,7 +6,12 @@ import org.bluedevel.hollidaymanager.PasswordHasher;
 import org.bluedevel.hollidaymanager.UserDao;
 import org.bluedevel.hollidaymanager.models.Department;
 import org.bluedevel.hollidaymanager.models.User;
+import org.bluedevel.hollidaymanager.resources.converter.NewUserConverter;
+import org.bluedevel.hollidaymanager.resources.converter.UserConverter;
+import org.bluedevel.hollidaymanager.resources.dto.NewUserDto;
+import org.bluedevel.hollidaymanager.resources.dto.UserDto;
 import org.bluedevel.hollidaymanager.resources.exceptions.DepartmentNotFoundExecption;
+import org.bluedevel.hollidaymanager.resources.exceptions.InvalidWorkdayDefinitionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
@@ -42,35 +48,44 @@ public class UserResource {
     private final DepartmentDao departmentDao;
     private final PasswordHasher hasher;
 
+    private final UserConverter userConverter;
+    private final NewUserConverter newUserConverter;
+
     @Autowired
-    public UserResource(UserDao userDao, DepartmentDao departmentDao, PasswordHasher hasher) {
+    public UserResource(UserDao userDao, DepartmentDao departmentDao, PasswordHasher hasher,
+                        UserConverter userConverter, NewUserConverter newUserConverter) {
         this.userDao = userDao;
         this.departmentDao = departmentDao;
         this.hasher = hasher;
+        this.userConverter = userConverter;
+        this.newUserConverter = newUserConverter;
     }
 
     @RequestMapping("/{name}")
-    public User getUser(@PathVariable("name") String name) {
-        return userDao.findByUsername(name);
+    public UserDto getUser(@PathVariable("name") String name) {
+        User user = userDao.findByUsername(name);
+        return userConverter.toDto(user);
     }
 
     @RequestMapping(method = PUT)
-    public void addUser(@RequestBody User user) throws DepartmentNotFoundExecption, NoSuchAlgorithmException {
+    public void addUser(@RequestBody NewUserDto user) throws DepartmentNotFoundExecption, NoSuchAlgorithmException, InvalidWorkdayDefinitionException {
+        Optional.ofNullable(user.getWorkdayDefinition())
+                .orElseThrow(InvalidWorkdayDefinitionException::new);
+
         String departmentName = Optional.ofNullable(user.getDepartment())
                 .map(Department::getName)
                 .filter(StringUtils::isNotEmpty)
                 .orElseThrow(DepartmentNotFoundExecption::new);
 
-        Department existingDepartment = Optional.of(departmentDao
+        Department existingDepartment = Optional.ofNullable(departmentDao
                 .findByName(departmentName))
                 .orElseThrow(DepartmentNotFoundExecption::new);
 
         user.setDepartment(existingDepartment);
 
-        //TODO handle IllegalArgument correctly
+        //TODO handle IllegalArgument correctly; push in manager layer for business logic
         user.setPassword(hasher.hash(user.getPassword()));
-
-        userDao.save(user);
+        userDao.save(newUserConverter.toModel(user));
     }
 
     @ExceptionHandler(NoSuchAlgorithmException.class)
@@ -81,5 +96,10 @@ public class UserResource {
     @ExceptionHandler(DepartmentNotFoundExecption.class)
     public ResponseEntity<?> handleDepartmentNotFound() {
         return new ResponseEntity<>("Department not found", NOT_FOUND);
+    }
+
+    @ExceptionHandler(InvalidWorkdayDefinitionException.class)
+    public ResponseEntity<?> handleInvalidWorkdayDefinition() {
+        return new ResponseEntity<>("Invalid workday definition", BAD_REQUEST);
     }
 }
