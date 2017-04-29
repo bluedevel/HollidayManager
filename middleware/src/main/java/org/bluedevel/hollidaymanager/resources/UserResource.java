@@ -5,13 +5,13 @@ import org.bluedevel.hollidaymanager.DepartmentDao;
 import org.bluedevel.hollidaymanager.PasswordHasher;
 import org.bluedevel.hollidaymanager.UserDao;
 import org.bluedevel.hollidaymanager.models.Department;
-import org.bluedevel.hollidaymanager.models.User;
 import org.bluedevel.hollidaymanager.resources.converter.NewUserConverter;
 import org.bluedevel.hollidaymanager.resources.converter.UserConverter;
 import org.bluedevel.hollidaymanager.resources.dto.NewUserDto;
 import org.bluedevel.hollidaymanager.resources.dto.UserDto;
 import org.bluedevel.hollidaymanager.resources.exceptions.DepartmentNotFoundExecption;
 import org.bluedevel.hollidaymanager.resources.exceptions.InvalidWorkdayDefinitionException;
+import org.bluedevel.hollidaymanager.resources.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,9 +62,10 @@ public class UserResource {
     }
 
     @RequestMapping("/{name}")
-    public UserDto getUser(@PathVariable("name") String name) {
-        User user = userDao.findByUsername(name);
-        return userConverter.toDto(user);
+    public UserDto getUser(@PathVariable("name") String name) throws UserNotFoundException {
+        return userDao.findByUsername(name)
+                .map(userConverter::toDto)
+                .orElseThrow(UserNotFoundException::new);
     }
 
     @RequestMapping(method = PUT)
@@ -77,8 +78,8 @@ public class UserResource {
                 .filter(StringUtils::isNotEmpty)
                 .orElseThrow(DepartmentNotFoundExecption::new);
 
-        Department existingDepartment = Optional.ofNullable(departmentDao
-                .findByName(departmentName))
+        Department existingDepartment = departmentDao
+                .findByName(departmentName)
                 .orElseThrow(DepartmentNotFoundExecption::new);
 
         user.setDepartment(existingDepartment);
@@ -96,6 +97,11 @@ public class UserResource {
     @ExceptionHandler(DepartmentNotFoundExecption.class)
     public ResponseEntity<?> handleDepartmentNotFound() {
         return new ResponseEntity<>("Department not found", NOT_FOUND);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<?> handleUserNotFound() {
+        return new ResponseEntity<>("User not found", NOT_FOUND);
     }
 
     @ExceptionHandler(InvalidWorkdayDefinitionException.class)
