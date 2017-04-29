@@ -2,6 +2,7 @@ package org.bluedevel.hollidaymanager.resources.dto;
 
 import org.bluedevel.hollidaymanager.models.Department;
 import org.bluedevel.hollidaymanager.models.Role;
+import org.bluedevel.hollidaymanager.models.UserWorkdayDefinition;
 
 /**
  * @author Robin Engel
@@ -14,7 +15,7 @@ public class UserDto {
     private Role role;
     private String firstName;
     private String lastName;
-    private WorkdayDefinitionDto workdayDefinition;
+    private UserWorkdayDefinition workdayDefinition;
 
     public String getUsername() {
         return username;
@@ -64,11 +65,11 @@ public class UserDto {
         this.lastName = lastName;
     }
 
-    public WorkdayDefinitionDto getWorkdayDefinition() {
+    public UserWorkdayDefinition getWorkdayDefinition() {
         return workdayDefinition;
     }
 
-    public void setWorkdayDefinition(WorkdayDefinitionDto workdayDefinition) {
+    public void setWorkdayDefinition(UserWorkdayDefinition workdayDefinition) {
         this.workdayDefinition = workdayDefinition;
     }
 }

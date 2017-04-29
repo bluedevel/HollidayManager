@@ -2,7 +2,6 @@ package org.bluedevel.hollidaymanager.resources.converter;
 
 import org.bluedevel.hollidaymanager.models.User;
 import org.bluedevel.hollidaymanager.resources.dto.UserDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,9 +9,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class UserConverter implements DtoConverter<UserDto, User> {
-
-    @Autowired
-    private UserWorkdayDefinitionConverter userWorkdayDefinitionConverter;
 
     @Override
     public UserDto toDto(User model) {
@@ -23,8 +19,7 @@ public class UserConverter implements DtoConverter<UserDto, User> {
         dto.setRole(model.getRole());
         dto.setFirstName(model.getFirstName());
         dto.setLastName(model.getLastName());
-        dto.setWorkdayDefinition(
-                userWorkdayDefinitionConverter.toDto(model.getUserWorkdayDefinition()));
+        dto.setWorkdayDefinition(model.getUserWorkdayDefinition());
         return dto;
     }
 
@@ -37,8 +32,7 @@ public class UserConverter implements DtoConverter<UserDto, User> {
         user.setRole(dto.getRole());
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
-        user.setUserWorkdayDefinition(
-                userWorkdayDefinitionConverter.toModel(dto.getWorkdayDefinition()));
+        user.setUserWorkdayDefinition(dto.getWorkdayDefinition());
         return user;
     }
 }
