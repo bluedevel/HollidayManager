@@ -1,6 +1,6 @@
 package org.bluedevel.hollidaymanager.resources;
 
-import org.bluedevel.hollidaymanager.DepartmentDao;
+import org.bluedevel.hollidaymanager.daos.DepartmentDao;
 import org.bluedevel.hollidaymanager.models.Department;
 import org.bluedevel.hollidaymanager.resources.exceptions.DepartmentNotFoundExecption;
 import org.springframework.beans.factory.annotation.Autowired;

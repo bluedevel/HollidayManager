@@ -1,9 +1,9 @@
 package org.bluedevel.hollidaymanager.resources;
 
 import org.apache.commons.lang3.StringUtils;
-import org.bluedevel.hollidaymanager.DepartmentDao;
+import org.bluedevel.hollidaymanager.daos.DepartmentDao;
 import org.bluedevel.hollidaymanager.PasswordHasher;
-import org.bluedevel.hollidaymanager.UserDao;
+import org.bluedevel.hollidaymanager.daos.UserDao;
 import org.bluedevel.hollidaymanager.models.Department;
 import org.bluedevel.hollidaymanager.resources.converter.NewUserConverter;
 import org.bluedevel.hollidaymanager.resources.converter.UserConverter;

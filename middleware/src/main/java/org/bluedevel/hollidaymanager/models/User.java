@@ -10,10 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 import static javax.persistence.EnumType.STRING;
 
@@ -65,6 +67,9 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @NotNull
     private UserWorkdayDefinition userWorkdayDefinition;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Holiday> holidays;
 
     public long getId() {
         return id;
@@ -134,4 +139,11 @@ public class User {
         this.userWorkdayDefinition = userWorkdayDefinition;
     }
 
+    public Set<Holiday> getHolidays() {
+        return holidays;
+    }
+
+    public void setHolidays(Set<Holiday> holidays) {
+        this.holidays = holidays;
+    }
 }

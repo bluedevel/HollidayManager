@@ -1,4 +1,4 @@
-package org.bluedevel.hollidaymanager;
+package org.bluedevel.hollidaymanager.daos;
 
 import org.bluedevel.hollidaymanager.models.UserWorkdayDefinition;
 import org.springframework.data.repository.CrudRepository;

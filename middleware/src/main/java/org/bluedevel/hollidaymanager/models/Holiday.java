@@ -9,14 +9,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Nightcrawler on 20.12.2016.
  */
 @Entity
-@Table(name = "hollidays")
-public class Holliday {
+@Table(name = "holidays")
+public class Holiday {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,18 +32,26 @@ public class Holliday {
     @Temporal(TemporalType.DATE)
     private Calendar end;
 
-    @NotNull
     private boolean approved;
-
-    @NotNull
     private boolean startsWithHalfDay;
-
-    @NotNull
     private boolean endsWithHalfDay;
 
     @ManyToOne
-    @NotNull
     private User user;
+
+    public List<Calendar> getDays() {
+        List<Calendar> days = new ArrayList<>();
+
+        Calendar cal = start;
+
+        while (cal.compareTo(end) <= 0) {
+            days.add(cal);
+            cal = (Calendar) cal.clone();
+            cal.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        return days;
+    }
 
     public long getId() {
         return id;
