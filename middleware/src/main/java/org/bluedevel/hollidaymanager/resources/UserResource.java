@@ -16,8 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,9 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 /**
@@ -36,7 +31,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
  */
 @RestController
 @RequestMapping("/users")
-public class UserResource {
+public class UserResource extends AbstractResource {
 
     //TODO use lombok here {@Slf4j}
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
@@ -87,25 +82,5 @@ public class UserResource {
         //TODO handle IllegalArgument correctly; push in manager layer for business logic
         user.setPassword(hasher.hash(user.getPassword()));
         userDao.save(newUserConverter.toModel(user));
-    }
-
-    @ExceptionHandler(NoSuchAlgorithmException.class)
-    public ResponseEntity<?> handleNoSuchAlgorithmException() {
-        return new ResponseEntity<>("Unable to find hash algorithm " + algorithm, INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(DepartmentNotFoundExecption.class)
-    public ResponseEntity<?> handleDepartmentNotFound() {
-        return new ResponseEntity<>("Department not found", NOT_FOUND);
-    }
-
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<?> handleUserNotFound() {
-        return new ResponseEntity<>("User not found", NOT_FOUND);
-    }
-
-    @ExceptionHandler(InvalidWorkdayDefinitionException.class)
-    public ResponseEntity<?> handleInvalidWorkdayDefinition() {
-        return new ResponseEntity<>("Invalid workday definition", BAD_REQUEST);
     }
 }
