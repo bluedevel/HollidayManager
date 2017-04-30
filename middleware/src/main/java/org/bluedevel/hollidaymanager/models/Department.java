@@ -24,6 +24,13 @@ public class Department {
     @NotNull
     private String name;
 
+    public Department() {
+    }
+
+    public Department(String name) {
+        this.name = name;
+    }
+
     public long getId() {
         return id;
     }

@@ -71,6 +71,20 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<Holiday> holidays;
 
+    public User() {
+    }
+
+    public User(String username, String password, int vacationDays, Department department, Role role, String firstName, String lastName, UserWorkdayDefinition userWorkdayDefinition) {
+        this.username = username;
+        this.password = password;
+        this.vacationDays = vacationDays;
+        this.department = department;
+        this.role = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userWorkdayDefinition = userWorkdayDefinition;
+    }
+
     public long getId() {
         return id;
     }

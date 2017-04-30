@@ -39,12 +39,21 @@ public class GlobalWorkdayDefinition implements WorkdayDefinition {
     @NotNull
     private boolean sunday;
 
-    public long getId() {
-        return id;
+    public GlobalWorkdayDefinition() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public GlobalWorkdayDefinition(boolean monday, boolean tuesday, boolean wednesday, boolean thursday, boolean friday, boolean saturday, boolean sunday) {
+        this.monday = monday;
+        this.tuesday = tuesday;
+        this.wednesday = wednesday;
+        this.thursday = thursday;
+        this.friday = friday;
+        this.saturday = saturday;
+        this.sunday = sunday;
+    }
+
+    public long getId() {
+        return id;
     }
 
     @Override
