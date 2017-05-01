@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
  */
 @RestController
 @RequestMapping("/departments")
-public class DepartmentResource extends AbstractResource {
+public class DepartmentResource {
 
     private final DepartmentDao departmentDao;
 

@@ -1,8 +1,8 @@
 package org.bluedevel.hollidaymanager.resources;
 
 import org.apache.commons.lang3.StringUtils;
-import org.bluedevel.hollidaymanager.daos.DepartmentDao;
 import org.bluedevel.hollidaymanager.PasswordHasher;
+import org.bluedevel.hollidaymanager.daos.DepartmentDao;
 import org.bluedevel.hollidaymanager.daos.UserDao;
 import org.bluedevel.hollidaymanager.models.Department;
 import org.bluedevel.hollidaymanager.resources.converter.NewUserConverter;
@@ -31,7 +31,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
  */
 @RestController
 @RequestMapping("/users")
-public class UserResource extends AbstractResource {
+public class UserResource {
 
     //TODO use lombok here {@Slf4j}
     private final Logger log = LoggerFactory.getLogger(UserResource.class);
@@ -79,7 +79,7 @@ public class UserResource extends AbstractResource {
 
         user.setDepartment(existingDepartment);
 
-        //TODO handle IllegalArgument correctly; push in manager layer for business logic
+        //TODO handle IllegalArgument correctly
         user.setPassword(hasher.hash(user.getPassword()));
         userDao.save(newUserConverter.toModel(user));
     }

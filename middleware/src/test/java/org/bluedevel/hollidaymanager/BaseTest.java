@@ -10,17 +10,22 @@ import org.bluedevel.hollidaymanager.models.GlobalWorkdayDefinition;
 import org.bluedevel.hollidaymanager.models.Role;
 import org.bluedevel.hollidaymanager.models.User;
 import org.bluedevel.hollidaymanager.models.UserWorkdayDefinition;
+import org.bluedevel.hollidaymanager.resources.dto.NewUserDto;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertNotNull;
@@ -33,6 +38,10 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @SpringBootTest(classes = HollidaymanagerApplication.class)
 @WebAppConfiguration
 public abstract class BaseTest {
+
+    protected final MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+            MediaType.APPLICATION_JSON.getSubtype(),
+            Charset.forName("utf8"));
 
     protected MockMvc mockMvc;
     private HttpMessageConverter mappingJackson2HttpMessageConverter;
@@ -51,6 +60,14 @@ public abstract class BaseTest {
                 this.mappingJackson2HttpMessageConverter);
     }
 
+    @SuppressWarnings("unchecked")
+    protected String json(Object o) throws IOException {
+        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
+        this.mappingJackson2HttpMessageConverter.write(
+                o, MediaType.APPLICATION_JSON, mockHttpOutputMessage);
+        return mockHttpOutputMessage.getBodyAsString();
+    }
+
     @Autowired
     protected UserDao userDao;
 
@@ -67,7 +84,10 @@ public abstract class BaseTest {
     protected UserWorkdayDefinitionDao userWorkdayDefinitionDao;
 
     protected Department departmentCats;
+
     protected User userHelga;
+    protected NewUserDto newUserHelga;
+    protected NewUserDto newUserFranz;
 
     @Before
     public void baseSetup() throws Exception {
@@ -79,11 +99,24 @@ public abstract class BaseTest {
         this.globalWorkdayDefinitionDao.deleteAll();
         this.userWorkdayDefinitionDao.deleteAll();
 
-        this.departmentCats = this.departmentDao.save(new Department("Cats"));
-        this.userHelga = this.userDao.save(new User("helag1", "fred", 25, this.departmentCats,
+        this.departmentCats = new Department("Cats");
+
+        this.userHelga = new User("helag1", "fred", 25, this.departmentCats,
                 Role.USER, "Helga", "Gerölllheimer",
                 new UserWorkdayDefinition(true, true, true, true,
-                        true, false, false)));
+                        true, false, false));
+        this.newUserHelga = new NewUserDto("helag1", "fred", 25, this.departmentCats,
+                Role.USER, "Helga", "Gerölllheimer",
+                new UserWorkdayDefinition(true, true, true, true,
+                        true, false, false));
+
+        this.newUserFranz = new NewUserDto("franz", "fred", 25, this.departmentCats,
+                Role.USER, "Franz", "Müller",
+                new UserWorkdayDefinition(true, true, true, true,
+                        true, false, false));
+
+        this.departmentCats = this.departmentDao.save(this.departmentCats);
+        this.userHelga = this.userDao.save(this.userHelga);
 
         this.globalWorkdayDefinitionDao.save(new GlobalWorkdayDefinition(true, true,
                 true, true, true, false, false));

@@ -17,6 +17,19 @@ public class UserDto {
     private String lastName;
     private UserWorkdayDefinition workdayDefinition;
 
+    public UserDto() {
+    }
+
+    public UserDto(String username, int vacationDays, Department department, Role role, String firstName, String lastName, UserWorkdayDefinition workdayDefinition) {
+        this.username = username;
+        this.vacationDays = vacationDays;
+        this.department = department;
+        this.role = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.workdayDefinition = workdayDefinition;
+    }
+
     public String getUsername() {
         return username;
     }

@@ -20,7 +20,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.PUT;
  */
 @RestController
 @RequestMapping("/holiday")
-public class HolidayResource extends AbstractResource {
+public class HolidayResource {
 
     private UserDao userDao;
     private HolidayDao holidayDao;

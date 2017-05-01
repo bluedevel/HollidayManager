@@ -6,6 +6,7 @@ import org.bluedevel.hollidaymanager.resources.exceptions.UserNotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.security.NoSuchAlgorithmException;
@@ -17,7 +18,8 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 /**
  * @author Robin Engel
  */
-public abstract class AbstractResource {
+@ControllerAdvice
+public class ExceptionControllerAdvice {
 
     @Value("${hollidaymanager.security.passwords.algorithm}")
     private String algorithm;
@@ -47,4 +49,5 @@ public abstract class AbstractResource {
         //TODO think of nice error handling
         return new ResponseEntity<>("Constraint violation", BAD_REQUEST);
     }
+
 }
