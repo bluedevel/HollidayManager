@@ -1,5 +1,7 @@
 package org.bluedevel.hollidaymanager;
 
+import org.bluedevel.hollidaymanager.resources.exceptions.UserAlreadyExistsException;
+import org.bluedevel.hollidaymanager.resources.exceptions.UserNotFoundException;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -18,14 +20,16 @@ public class UserResourceTest extends BaseTest {
     public void getUser() throws Exception {
         perform(get("/users/" + this.userHelga.getUsername()))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$.username", is(this.userHelga.getUsername())));
     }
 
     @Test
     public void getUserNotFound() throws Exception {
         perform(get("/users/nonexistent"))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andExpect(content().contentType(contentTypeJson))
+                .andExpect(jsonPath("$.exception",
+                        is(UserNotFoundException.class.getName())));
     }
 
     @Test
@@ -37,6 +41,9 @@ public class UserResourceTest extends BaseTest {
     @Test
     public void addUserAlreadyExists() throws Exception {
         perform(put("/users"), this.newUserHelga)
-                .andExpect(status().isConflict());
+                .andExpect(status().isConflict())
+                .andExpect(content().contentType(contentTypeJson))
+                .andExpect(jsonPath("$.exception",
+                        is(UserAlreadyExistsException.class.getName())));;
     }
 }

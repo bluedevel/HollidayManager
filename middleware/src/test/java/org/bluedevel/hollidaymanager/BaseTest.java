@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @WebAppConfiguration
 public abstract class BaseTest {
 
-    protected final MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+    protected final MediaType contentTypeJson = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
             Charset.forName("utf8"));
 
@@ -68,7 +68,7 @@ public abstract class BaseTest {
 
     protected ResultActions perform(MockHttpServletRequestBuilder requestBuilder, Object data) throws Exception {
         requestBuilder = requestBuilder
-                .contentType(contentType)
+                .contentType(contentTypeJson)
                 .content(json(data));
 
         return perform(requestBuilder);

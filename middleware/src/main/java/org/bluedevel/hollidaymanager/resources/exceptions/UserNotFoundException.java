@@ -7,6 +7,6 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 /**
  * @author Robin Engel
  */
-@ResponseStatus(NOT_FOUND)
+@ResponseStatus(value = NOT_FOUND, reason = "User not found")
 public class UserNotFoundException extends Exception {
 }

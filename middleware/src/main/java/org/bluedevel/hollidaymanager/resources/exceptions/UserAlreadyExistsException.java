@@ -7,6 +7,6 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 /**
  * @author Robin Engel
  */
-@ResponseStatus(CONFLICT)
+@ResponseStatus(value = CONFLICT, reason = "User already exists")
 public class UserAlreadyExistsException extends Exception {
 }
