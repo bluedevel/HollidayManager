@@ -11,19 +11,23 @@ import org.bluedevel.hollidaymanager.resources.dto.NewUserDto;
 import org.bluedevel.hollidaymanager.resources.dto.UserDto;
 import org.bluedevel.hollidaymanager.resources.exceptions.DepartmentNotFoundExecption;
 import org.bluedevel.hollidaymanager.resources.exceptions.InvalidWorkdayDefinitionException;
+import org.bluedevel.hollidaymanager.resources.exceptions.UserAlreadyExistsException;
 import org.bluedevel.hollidaymanager.resources.exceptions.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.web.bind.annotation.RequestMethod.PUT;
 
 /**
@@ -64,7 +68,8 @@ public class UserResource {
     }
 
     @RequestMapping(method = PUT)
-    public void addUser(@RequestBody NewUserDto user) throws DepartmentNotFoundExecption, NoSuchAlgorithmException, InvalidWorkdayDefinitionException {
+    @ResponseStatus(CREATED)
+    public void addUser(@RequestBody NewUserDto user) throws DepartmentNotFoundExecption, NoSuchAlgorithmException, InvalidWorkdayDefinitionException, UserAlreadyExistsException {
         Optional.ofNullable(user.getWorkdayDefinition())
                 .orElseThrow(InvalidWorkdayDefinitionException::new);
 
@@ -81,6 +86,11 @@ public class UserResource {
 
         //TODO handle IllegalArgument correctly
         user.setPassword(hasher.hash(user.getPassword()));
-        userDao.save(newUserConverter.toModel(user));
+
+        try {
+            userDao.save(newUserConverter.toModel(user));
+        } catch (DataIntegrityViolationException e) {
+            throw new UserAlreadyExistsException();
+        }
     }
 }

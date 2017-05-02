@@ -2,7 +2,6 @@ package org.bluedevel.hollidaymanager.resources;
 
 import org.bluedevel.hollidaymanager.resources.exceptions.DepartmentNotFoundExecption;
 import org.bluedevel.hollidaymanager.resources.exceptions.InvalidWorkdayDefinitionException;
-import org.bluedevel.hollidaymanager.resources.exceptions.UserNotFoundException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
