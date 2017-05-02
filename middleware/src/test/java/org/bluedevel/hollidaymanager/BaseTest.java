@@ -22,6 +22,8 @@ import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.io.IOException;
@@ -58,6 +60,18 @@ public abstract class BaseTest {
 
         assertNotNull("the JSON message converter must not be null",
                 this.mappingJackson2HttpMessageConverter);
+    }
+
+    protected ResultActions perform(MockHttpServletRequestBuilder requestBuilder) throws Exception {
+        return this.mockMvc.perform(requestBuilder);
+    }
+
+    protected ResultActions perform(MockHttpServletRequestBuilder requestBuilder, Object data) throws Exception {
+        requestBuilder = requestBuilder
+                .contentType(contentType)
+                .content(json(data));
+
+        return perform(requestBuilder);
     }
 
     @SuppressWarnings("unchecked")
