@@ -1,15 +1,7 @@
 package org.bluedevel.hollidaymanager;
 
-import org.bluedevel.hollidaymanager.daos.DepartmentDao;
-import org.bluedevel.hollidaymanager.daos.GlobalWorkdayDefinitionDao;
-import org.bluedevel.hollidaymanager.daos.HolidayDao;
-import org.bluedevel.hollidaymanager.daos.UserDao;
-import org.bluedevel.hollidaymanager.daos.UserWorkdayDefinitionDao;
-import org.bluedevel.hollidaymanager.models.Department;
-import org.bluedevel.hollidaymanager.models.GlobalWorkdayDefinition;
-import org.bluedevel.hollidaymanager.models.Role;
-import org.bluedevel.hollidaymanager.models.User;
-import org.bluedevel.hollidaymanager.models.UserWorkdayDefinition;
+import org.bluedevel.hollidaymanager.daos.*;
+import org.bluedevel.hollidaymanager.models.*;
 import org.bluedevel.hollidaymanager.resources.dto.NewUserDto;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -98,6 +90,7 @@ public abstract class BaseTest {
     protected UserWorkdayDefinitionDao userWorkdayDefinitionDao;
 
     protected Department departmentCats;
+    protected Department departmentDogs;
 
     protected User userHelga;
     protected NewUserDto newUserHelga;
@@ -114,6 +107,7 @@ public abstract class BaseTest {
         this.userWorkdayDefinitionDao.deleteAll();
 
         this.departmentCats = new Department("Cats");
+        this.departmentDogs = new Department("Dogs");
 
         this.userHelga = new User("helag1", "fred", 25, this.departmentCats,
                 Role.USER, "Helga", "Gerölllheimer",
