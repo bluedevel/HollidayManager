@@ -3,6 +3,7 @@ package org.bluedevel.hollidaymanager;
 import org.bluedevel.hollidaymanager.daos.*;
 import org.bluedevel.hollidaymanager.models.*;
 import org.bluedevel.hollidaymanager.resources.dto.NewUserDto;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
+import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -21,8 +24,10 @@ import org.springframework.web.context.WebApplicationContext;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 /**
@@ -30,6 +35,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = HollidaymanagerApplication.class)
+//@TestExecutionListeners({TransactionalTestExecutionListener.class})
 @WebAppConfiguration
 public abstract class BaseTest {
 
@@ -130,4 +136,13 @@ public abstract class BaseTest {
                 true, true, true, false, false));
     }
 
+    User loadUser(String username) {
+        Optional<User> user = userDao.findByUsername(username);
+
+        if (!user.isPresent()) {
+            fail("User not found");
+        }
+
+        return user.get();
+    }
 }

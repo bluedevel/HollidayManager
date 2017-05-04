@@ -33,7 +33,7 @@ public class HolidayResource {
         this.workdayService = workdayService;
     }
 
-    @RequestMapping(path = "{user}", method = PUT)
+    @RequestMapping(path = "/{user}", method = PUT)
     public void register(@PathVariable("user") String userName, @RequestBody Holiday newHoliday) throws UserNotFoundException, NoMoreHolidayLeftException {
         User user = userDao.findByUsername(userName)
                 .orElseThrow(UserNotFoundException::new);
