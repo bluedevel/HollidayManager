@@ -9,7 +9,7 @@ import org.bluedevel.hollidaymanager.resources.converter.NewUserConverter;
 import org.bluedevel.hollidaymanager.resources.converter.UserConverter;
 import org.bluedevel.hollidaymanager.resources.dto.NewUserDto;
 import org.bluedevel.hollidaymanager.resources.dto.UserDto;
-import org.bluedevel.hollidaymanager.resources.exceptions.DepartmentNotFoundExecption;
+import org.bluedevel.hollidaymanager.resources.exceptions.DepartmentNotFoundException;
 import org.bluedevel.hollidaymanager.resources.exceptions.InvalidWorkdayDefinitionException;
 import org.bluedevel.hollidaymanager.resources.exceptions.UserAlreadyExistsException;
 import org.bluedevel.hollidaymanager.resources.exceptions.UserNotFoundException;
@@ -69,18 +69,18 @@ public class UserResource {
 
     @RequestMapping(method = PUT)
     @ResponseStatus(CREATED)
-    public void addUser(@RequestBody NewUserDto user) throws DepartmentNotFoundExecption, NoSuchAlgorithmException, InvalidWorkdayDefinitionException, UserAlreadyExistsException {
+    public void addUser(@RequestBody NewUserDto user) throws DepartmentNotFoundException, NoSuchAlgorithmException, InvalidWorkdayDefinitionException, UserAlreadyExistsException {
         Optional.ofNullable(user.getWorkdayDefinition())
                 .orElseThrow(InvalidWorkdayDefinitionException::new);
 
         String departmentName = Optional.ofNullable(user.getDepartment())
                 .map(Department::getName)
                 .filter(StringUtils::isNotEmpty)
-                .orElseThrow(DepartmentNotFoundExecption::new);
+                .orElseThrow(DepartmentNotFoundException::new);
 
         Department existingDepartment = departmentDao
                 .findByName(departmentName)
-                .orElseThrow(DepartmentNotFoundExecption::new);
+                .orElseThrow(DepartmentNotFoundException::new);
 
         user.setDepartment(existingDepartment);
 
