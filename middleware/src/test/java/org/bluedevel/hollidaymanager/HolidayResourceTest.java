@@ -1,17 +1,13 @@
 package org.bluedevel.hollidaymanager;
 
 import org.bluedevel.hollidaymanager.models.Holiday;
-import org.bluedevel.hollidaymanager.models.User;
-import org.hibernate.Hibernate;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.Calendar;
-import java.util.Set;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static java.util.Calendar.JUNE;
+import static java.util.Calendar.MAY;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,36 +17,27 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class HolidayResourceTest extends BaseTest {
 
     @Test
-    @Transactional
-    @Ignore
     public void testAddSingleHoliday() throws Exception {
-        Holiday newHoliday = new Holiday();
-
         Calendar start = Calendar.getInstance();
-        start.set(2017, 5, 1); // Monday
         Calendar end = Calendar.getInstance();
-        end.set(2017, 5, 7);
 
-        newHoliday.setStart(start);
-        newHoliday.setEnd(end);
+        start.set(2017, MAY, 1); // Monday
+        end.set(2017, MAY, 26);
 
-        perform(put("/holiday/" + userHelga.getUsername()), newHoliday)
+        putHoliday(start, end)
                 .andExpect(status().isOk());
-
-        User user = loadUser(userHelga.getUsername());
-        Hibernate.initialize(user.getHolidays());
-        Set<Holiday> holidays = user.getHolidays();
-        assertThat(holidays.size(), is(1));
-
-        Holiday loadedHoliday = holidays.iterator().next();
-        assertThat(loadedHoliday.getStart(), is(start));
-        assertThat(loadedHoliday.getEnd(), is(end));
-        assertThat(loadedHoliday.getDays().size(), is(7));
     }
 
     @Test
     public void testAddSingleHolidayTooLarge() throws Exception {
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
 
+        start.set(2017, MAY, 1); // Monday
+        end.set(2017, JUNE, 5);
+
+        putHoliday(start, end)
+                .andExpect(status().isConflict());
     }
 
     @Test
@@ -60,11 +47,51 @@ public class HolidayResourceTest extends BaseTest {
 
     @Test
     public void testAddMultipleHolidaysTooLarge() throws Exception {
+        Calendar start = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
 
+        start.set(2017, MAY, 1); // Monday
+        end.set(2017, MAY, 5);
+
+        putHoliday(start, end)
+                .andExpect(status().isOk());
+
+        start.set(2017, MAY, 7);
+        end.set(2017, MAY, 9);
+
+        putHoliday(start, end)
+                .andExpect(status().isOk());
+
+        start.set(2017, MAY, 10);
+        end.set(2017, MAY, 13);
+
+        putHoliday(start, end)
+                .andExpect(status().isOk());
+
+        start.set(2017, MAY, 17);
+        end.set(2017, MAY, 21);
+
+        putHoliday(start, end)
+                .andExpect(status().isOk());
+
+        start.set(2017, MAY, 22);
+        end.set(2017, JUNE, 7);
+
+        putHoliday(start, end)
+                .andExpect(status().isConflict());
     }
 
     @Test
     public void testAddMultipleHolidaysTooLargeWithHalfDays() throws Exception {
 
+    }
+
+    private ResultActions putHoliday(Calendar start, Calendar end) throws Exception {
+        Holiday newHoliday = new Holiday();
+
+        newHoliday.setStart(start);
+        newHoliday.setEnd(end);
+
+        return perform(put("/holiday/" + userHelga.getUsername()), newHoliday);
     }
 }
