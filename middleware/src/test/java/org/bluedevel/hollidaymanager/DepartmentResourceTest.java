@@ -1,7 +1,6 @@
 package org.bluedevel.hollidaymanager;
 
 import org.bluedevel.hollidaymanager.models.Department;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Optional;
@@ -36,12 +35,12 @@ public class DepartmentResourceTest extends BaseTest {
     @Test
     public void addDepartment() throws Exception {
 
-        perform(put("/departments"), departmentDogs)
+        perform(put("/departments"), newDepartmentDogs)
                 .andExpect(status().isOk());
 
-        Optional<Department> department = departmentDao.findByName(departmentDogs.getName());
+        Optional<Department> department = departmentDao.findByName(newDepartmentDogs.getName());
         if (department.isPresent()) {
-            assertThat(department.get().getName(), is(departmentDogs.getName()));
+            assertThat(department.get().getName(), is(newDepartmentDogs.getName()));
         } else {
             fail();
         }
