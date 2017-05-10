@@ -98,6 +98,8 @@ public abstract class BaseTest {
     protected UserWorkdayDefinitionDao userWorkdayDefinitionDao;
 
     protected Department departmentCats;
+    protected Department newDepartmentDogs;
+    protected Department newDepartmentCats;
 
     protected User userHelga;
     protected NewUserDto newUserHelga;
@@ -114,6 +116,9 @@ public abstract class BaseTest {
         this.userWorkdayDefinitionDao.deleteAll();
 
         this.departmentCats = new Department("Cats");
+        this.newDepartmentCats = new Department("Cats");
+
+        this.newDepartmentDogs = new Department("Dogs");
 
         this.userHelga = new User("helag1", "fred", 25, this.departmentCats,
                 Role.USER, "Helga", "Gerölllheimer",
