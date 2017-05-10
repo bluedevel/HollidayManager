@@ -8,6 +8,7 @@ import java.util.Calendar;
 
 import static java.util.Calendar.JUNE;
 import static java.util.Calendar.MAY;
+import static org.junit.Assert.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -42,7 +43,7 @@ public class HolidayResourceTest extends BaseTest {
 
     @Test
     public void testAddMultipleHolidays() throws Exception {
-
+        fail();
     }
 
     @Test
@@ -83,7 +84,7 @@ public class HolidayResourceTest extends BaseTest {
 
     @Test
     public void testAddMultipleHolidaysTooLargeWithHalfDays() throws Exception {
-
+        fail();
     }
 
     private ResultActions putHoliday(Calendar start, Calendar end) throws Exception {
