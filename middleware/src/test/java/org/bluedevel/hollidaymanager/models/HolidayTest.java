@@ -33,14 +33,16 @@ public class HolidayTest {
 
         Calendar start = Calendar.getInstance();
         Calendar end = Calendar.getInstance();
-
-        start.set(2017, MAY, 7);
-        end.set(2017, MAY, 27);
-
         holiday.setStart(start);
         holiday.setEnd(end);
 
+        start.set(2017, MAY, 7);
+        end.set(2017, MAY, 27);
         assertEquals(21, holiday.getDays().size());
+
+        start.set(2017, MAY, 1); // Monday
+        end.set(2017, MAY, 14);
+        assertEquals(14, holiday.getDays().size());
     }
 
 }
