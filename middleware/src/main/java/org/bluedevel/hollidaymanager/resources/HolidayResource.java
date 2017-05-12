@@ -38,7 +38,7 @@ public class HolidayResource {
         User user = userDao.findByUsername(userName)
                 .orElseThrow(UserNotFoundException::new);
 
-        if (workdayService.getUsedDays(user, newHoliday) >= user.getVacationDays()) {
+        if (workdayService.getUsedDays(user, newHoliday) > user.getVacationDays()) {
             throw new NoMoreHolidayLeftException();
         }
 

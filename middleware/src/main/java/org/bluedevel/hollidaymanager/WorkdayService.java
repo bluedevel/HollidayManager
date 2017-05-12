@@ -42,20 +42,20 @@ public class WorkdayService {
         this.globalWorkdayDefinitionDao = globalWorkdayDefinitionDao;
     }
 
-    public long getUsedDays(User user) {
+    public double getUsedDays(User user) {
         return getUsedDays(user.getUserWorkdayDefinition(), user.getHolidays());
     }
 
-    public long getUsedDays(User user, Holiday newHoliday) {
+    public double getUsedDays(User user, Holiday newHoliday) {
         Set<Holiday> holidays = new HashSet<>(user.getHolidays());
         holidays.add(newHoliday);
         return getUsedDays(user.getUserWorkdayDefinition(), holidays);
     }
 
-    private long getUsedDays(WorkdayDefinition workdayDefinition, Collection<Holiday> holidays) {
+    private double getUsedDays(WorkdayDefinition workdayDefinition, Collection<Holiday> holidays) {
         Iterable<GlobalWorkdayDefinition> globalWorkdayDefinitions = globalWorkdayDefinitionDao.findAll();
 
-        int usedDays = 0;
+        double usedDays = 0;
         for (Holiday holiday : holidays) {
             usedDays += holiday.getDays().stream()
                     .filter(d -> isWorkday(globalWorkdayDefinitions, workdayDefinition, d))
