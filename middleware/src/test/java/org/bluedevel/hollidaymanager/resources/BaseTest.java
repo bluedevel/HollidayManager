@@ -1,5 +1,6 @@
-package org.bluedevel.hollidaymanager;
+package org.bluedevel.hollidaymanager.resources;
 
+import org.bluedevel.hollidaymanager.HollidaymanagerApplication;
 import org.bluedevel.hollidaymanager.daos.DepartmentDao;
 import org.bluedevel.hollidaymanager.daos.GlobalWorkdayDefinitionDao;
 import org.bluedevel.hollidaymanager.daos.HolidayDao;

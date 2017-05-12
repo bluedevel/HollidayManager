@@ -70,6 +70,8 @@ public class WorkdayService {
             }
         }
 
+        System.out.println(usedDays);
+
         return usedDays;
     }
 

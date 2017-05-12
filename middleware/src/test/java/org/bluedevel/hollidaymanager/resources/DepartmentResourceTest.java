@@ -1,4 +1,4 @@
-package org.bluedevel.hollidaymanager;
+package org.bluedevel.hollidaymanager.resources;
 
 import org.bluedevel.hollidaymanager.models.Department;
 import org.junit.Test;
