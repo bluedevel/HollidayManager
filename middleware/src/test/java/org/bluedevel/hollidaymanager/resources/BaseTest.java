@@ -12,6 +12,7 @@ import org.bluedevel.hollidaymanager.models.Role;
 import org.bluedevel.hollidaymanager.models.User;
 import org.bluedevel.hollidaymanager.models.UserWorkdayDefinition;
 import org.bluedevel.hollidaymanager.resources.dto.NewUserDto;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,12 +111,6 @@ public abstract class BaseTest {
     public void baseSetup() throws Exception {
         this.mockMvc = webAppContextSetup(webApplicationContext).build();
 
-        this.holidayDao.deleteAll();
-        this.userDao.deleteAll();
-        this.departmentDao.deleteAll();
-        this.globalWorkdayDefinitionDao.deleteAll();
-        this.userWorkdayDefinitionDao.deleteAll();
-
         this.departmentCats = new Department("Cats");
         this.newDepartmentCats = new Department("Cats");
 
@@ -140,6 +135,15 @@ public abstract class BaseTest {
 
         this.globalWorkdayDefinitionDao.save(new GlobalWorkdayDefinition(true, true,
                 true, true, true, false, false));
+    }
+
+    @After
+    public void baseAfter() {
+        this.holidayDao.deleteAll();
+        this.userDao.deleteAll();
+        this.departmentDao.deleteAll();
+        this.globalWorkdayDefinitionDao.deleteAll();
+        this.userWorkdayDefinitionDao.deleteAll();
     }
 
 }
