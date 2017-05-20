@@ -10,7 +10,7 @@
 
     <modules>
         <module>middleware</module>
-		<module>standalone-app</module>
+		<!--<module>standalone-app</module>-->
 	</modules>
 
 	<name>hollidaymanager</name>
