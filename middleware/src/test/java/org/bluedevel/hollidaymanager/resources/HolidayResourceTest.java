@@ -166,7 +166,7 @@ public class HolidayResourceTest extends BaseTest {
         Calendar end = Calendar.getInstance();
 
         start.set(2017, MAY, 1); // Monday
-        end.set(2017, MAY, 14);
+        end.set(2017, MAY, 12);
 
         putHoliday(start, end, h -> h.setEndsWithHalfDay(true))
                 .andExpect(status().isOk());

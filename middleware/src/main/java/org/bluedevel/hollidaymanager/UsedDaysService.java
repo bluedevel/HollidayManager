@@ -27,22 +27,24 @@ public class UsedDaysService {
     public double getUsedDays(WorkdayDefinition workdayDefinition, Collection<Holiday> holidays) {
         double usedDays = 0;
         for (Holiday holiday : holidays) {
-            List<Calendar> workdays = holiday.getDays().stream()
+            List<Calendar> days = holiday.getDays();
+
+            List<Calendar> workdays = days.stream()
                     .filter(d -> workdayService.isWorkday(d, workdayDefinition))
                     .collect(toList());
 
             usedDays += workdays.size();
 
-            if (holiday.isStartsWithHalfDay()) {
+            if (workdayService.isWorkday(holiday.getStart(), workdayDefinition)
+                    && holiday.isStartsWithHalfDay()) {
                 usedDays -= 0.5;
             }
 
-            if (holiday.isEndsWithHalfDay()) {
+            if (workdayService.isWorkday(holiday.getEnd(), workdayDefinition)
+                    && holiday.isEndsWithHalfDay()) {
                 usedDays -= 0.5;
             }
         }
-
-        System.out.println(usedDays);
 
         return usedDays;
     }

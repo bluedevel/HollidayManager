@@ -8,15 +8,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import static java.util.Collections.unmodifiableMap;
+
 /**
  * @author Robin Engel
  */
 @Component
 public class WorkdayService {
 
-    private Map<Integer, Function<WorkdayDefinition, Boolean>> days = new HashMap<>();
+    private final Map<Integer, Function<WorkdayDefinition, Boolean>> days;
 
     public WorkdayService() {
+        Map<Integer, Function<WorkdayDefinition, Boolean>> days = new HashMap<>();
         days.put(Calendar.MONDAY, WorkdayDefinition::isMonday);
         days.put(Calendar.TUESDAY, WorkdayDefinition::isTuesday);
         days.put(Calendar.WEDNESDAY, WorkdayDefinition::isWednesday);
@@ -24,6 +27,7 @@ public class WorkdayService {
         days.put(Calendar.FRIDAY, WorkdayDefinition::isFriday);
         days.put(Calendar.SATURDAY, WorkdayDefinition::isSaturday);
         days.put(Calendar.SUNDAY, WorkdayDefinition::isSunday);
+        this.days = unmodifiableMap(days);
     }
 
     public boolean isWorkday(Calendar calendar, WorkdayDefinition workdayDefinition) {
