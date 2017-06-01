@@ -38,26 +38,28 @@ public class DefaultUserInitializer implements CommandLineRunner {
         boolean adminExists = StreamSupport.stream(userDao.findAll().spliterator(), false)
                 .anyMatch(u -> u.getRole() == ADMIN);
 
-        if (!adminExists) {
-            Department department = new Department();
-            department.setName("default");
-            departmentDao.save(department);
-
-            User admin = new User();
-            admin.setUsername("admin");
-            admin.setPassword(passwordHasher.hash("admin"));
-            admin.setRole(ADMIN);
-
-            admin.setDepartment(department);
-            admin.setVacationDays(0);
-            admin.setUserWorkdayDefinition(new UserWorkdayDefinition());
-            admin.setFirstName("");
-            admin.setLastName("");
-
-            userDao.save(admin);
-
-            log.warn("No admin user was found! " +
-                    "Created a default one with credentials: username=admin; password=admin");
+        if (adminExists) {
+            return;
         }
+
+        Department department = new Department();
+        department.setName("default");
+        departmentDao.save(department);
+
+        User admin = new User();
+        admin.setUsername("admin");
+        admin.setPassword(passwordHasher.hash("admin"));
+        admin.setRole(ADMIN);
+
+        admin.setDepartment(department);
+        admin.setVacationDays(0);
+        admin.setUserWorkdayDefinition(new UserWorkdayDefinition());
+        admin.setFirstName("");
+        admin.setLastName("");
+
+        userDao.save(admin);
+
+        log.warn("No admin user was found! " +
+                "Created a default one with credentials: username=admin; password=admin");
     }
 }
