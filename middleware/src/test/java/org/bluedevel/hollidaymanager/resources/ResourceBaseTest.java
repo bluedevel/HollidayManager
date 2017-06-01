@@ -1,27 +1,18 @@
 package org.bluedevel.hollidaymanager.resources;
 
-import org.bluedevel.hollidaymanager.HollidaymanagerApplication;
-import org.bluedevel.hollidaymanager.daos.DepartmentDao;
-import org.bluedevel.hollidaymanager.daos.GlobalWorkdayDefinitionDao;
-import org.bluedevel.hollidaymanager.daos.HolidayDao;
-import org.bluedevel.hollidaymanager.daos.UserDao;
-import org.bluedevel.hollidaymanager.daos.UserWorkdayDefinitionDao;
+import org.bluedevel.hollidaymanager.IntegrationBaseTest;
 import org.bluedevel.hollidaymanager.models.Department;
 import org.bluedevel.hollidaymanager.models.GlobalWorkdayDefinition;
 import org.bluedevel.hollidaymanager.models.Role;
 import org.bluedevel.hollidaymanager.models.User;
 import org.bluedevel.hollidaymanager.models.UserWorkdayDefinition;
 import org.bluedevel.hollidaymanager.resources.dto.NewUserDto;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -38,10 +29,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 /**
  * @author Robin Engel
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = HollidaymanagerApplication.class)
 @WebAppConfiguration
-public abstract class BaseTest {
+public abstract class ResourceBaseTest extends IntegrationBaseTest {
 
     protected final MediaType contentTypeJson = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
@@ -84,21 +73,6 @@ public abstract class BaseTest {
         return mockHttpOutputMessage.getBodyAsString();
     }
 
-    @Autowired
-    protected UserDao userDao;
-
-    @Autowired
-    protected DepartmentDao departmentDao;
-
-    @Autowired
-    protected HolidayDao holidayDao;
-
-    @Autowired
-    protected GlobalWorkdayDefinitionDao globalWorkdayDefinitionDao;
-
-    @Autowired
-    protected UserWorkdayDefinitionDao userWorkdayDefinitionDao;
-
     protected Department departmentCats;
     protected Department newDepartmentDogs;
     protected Department newDepartmentCats;
@@ -136,14 +110,4 @@ public abstract class BaseTest {
         this.globalWorkdayDefinitionDao.save(new GlobalWorkdayDefinition(true, true,
                 true, true, true, false, false));
     }
-
-    @After
-    public void baseAfter() {
-        this.holidayDao.deleteAll();
-        this.userDao.deleteAll();
-        this.departmentDao.deleteAll();
-        this.globalWorkdayDefinitionDao.deleteAll();
-        this.userWorkdayDefinitionDao.deleteAll();
-    }
-
 }

@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Robin Engel on 04.05.17.
  */
-public class HolidayResourceTest extends BaseTest {
+public class HolidayResourceTest extends ResourceBaseTest {
 
     @Test
     public void testAddSingleHoliday() throws Exception {

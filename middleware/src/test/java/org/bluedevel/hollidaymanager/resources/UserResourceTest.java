@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author Robin Engel
  */
-public class UserResourceTest extends BaseTest {
+public class UserResourceTest extends ResourceBaseTest {
 
     @Test
     public void getUser() throws Exception {

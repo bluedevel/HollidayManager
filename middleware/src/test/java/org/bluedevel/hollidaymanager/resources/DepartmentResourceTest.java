@@ -16,7 +16,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * @author Robin Engel on 04.05.17.
  */
-public class DepartmentResourceTest extends BaseTest {
+public class DepartmentResourceTest extends ResourceBaseTest {
 
     @Test
     public void getDepartment() throws Exception {
