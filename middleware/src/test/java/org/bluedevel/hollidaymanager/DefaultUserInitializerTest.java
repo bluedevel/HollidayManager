@@ -43,7 +43,6 @@ public class DefaultUserInitializerTest {
     @Before
     public void setup() throws NoSuchAlgorithmException {
         initMocks(this);
-        //defaultUserInitializer = new DefaultUserInitializer(userDaoMock, departmentDaoMock, passwordHasherMock);
 
         doReturn("mocked password").when(passwordHasherMock).hash(any());
     }
