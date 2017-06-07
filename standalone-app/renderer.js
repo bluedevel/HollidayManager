@@ -2,7 +2,16 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
+class Test {
+
+    doStuff() {
+        console.log("es6!!!");
+    }
+
+}
+
 $('#fancy-btn')
-    .on('click', function () {
-        console.log("!");
+    .on('click', () => {
+        const test = new Test();
+        test.doStuff();
     });
