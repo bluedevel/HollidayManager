@@ -4,11 +4,15 @@
   "description": "The user application of the HollidayManager system",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "package": "./node/node ./node_modules/electron-packager/cli.js . HollidayManager --platform=darwin --arch=x64"
+    "start": "node ./node_modules/electron/cli.js .",
+    "package": "node ./node_modules/electron-packager/cli.js . HollidayManager --platform=darwin --arch=x64"
   },
   "devDependencies": {
     "electron": "^1.4.1",
     "electron-packager": "^8.4.0"
+  },
+  "dependencies": {
+    "materialize-css": "^0.98.2",
+    "vuetify": "^0.12.7"
   }
 }
