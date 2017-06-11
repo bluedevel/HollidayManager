@@ -5,5 +5,6 @@ window.$ = window.jQuery = require('jquery');
 
 new Vue({
     el: 'body',
+    render: h => h(App),
     components: {App}
 });

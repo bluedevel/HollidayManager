@@ -9,6 +9,8 @@
                 </ul>
             </div>
         </nav>
+
+        <p>{{ message }}!!!</p>
     </div>
 </template>
 
