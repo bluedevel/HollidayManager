@@ -1,8 +1,14 @@
 <template>
     <div id="app">
-        <p>{{ message }}</p>
-
-        <a id="fancy-btn" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>button</a>
+        <nav>
+            <div class="nav-wrapper">
+                <ul class="">
+                    <li><a href="sass.html">Sass</a></li>
+                    <li><a href="badges.html">Components</a></li>
+                    <li><a href="collapsible.html">JavaScript</a></li>
+                </ul>
+            </div>
+        </nav>
     </div>
 </template>
 
