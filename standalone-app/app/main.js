@@ -3,8 +3,14 @@ import App from "./App.vue";
 
 window.$ = window.jQuery = require('jquery');
 
-new Vue({
-    el: 'body',
-    render: h => h(App),
-    components: {App}
+require('material-icons-font/material-icons-font.css');
+require('materialize-css/dist/js/materialize.min');
+require('materialize-css/dist/css/materialize.min.css');
+
+$(document).ready(() => {
+    new Vue({
+        el: 'body',
+        render: h => h(App),
+        components: {App}
+    });
 });

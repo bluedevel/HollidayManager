@@ -19,6 +19,14 @@ module.exports = {
                 options: {
                     presets: ['electron']
                 }
+            },
+            {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader'
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf)$/,
+                loader: 'url-loader'
             }
         ]
     }/*,

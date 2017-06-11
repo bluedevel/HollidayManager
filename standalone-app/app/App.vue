@@ -9,7 +9,7 @@
                 </ul>
             </div>
         </nav>
-
+        <i class="material-icons">add</i>
         <p>{{ message }}!!!</p>
     </div>
 </template>
