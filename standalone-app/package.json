@@ -4,7 +4,7 @@
   "description": "A Bookmarking App using Electron, VueJs and Firebase",
   "main": "main.js",
   "scripts": {
-    "start": "electron main.js"
+    "start": "webpack && electron main.js"
   },
   "keywords": [
     "electron",
@@ -27,12 +27,11 @@
     "vue-loader": "^8.2.2",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.12.14",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.14.1",
+    "jquery": "^2.2.2",
+    "vue": "^1.0.19"
   },
   "dependencies": {
-    "firebase": "^2.4.1",
-    "jquery": "^2.2.2",
-    "materialize-css": "^0.98.2",
-    "vue": "^1.0.19"
+    "materialize-css": "^0.98.2"
   }
 }
