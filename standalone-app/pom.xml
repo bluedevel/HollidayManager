@@ -47,7 +47,7 @@
                             <arguments>run mvn-webpack</arguments>
                         </configuration>
                     </execution>
-                    <execution>
+                    <!--<execution>
                         <id>npm mvn-electron-win32</id>
                         <goals>
                             <goal>npm</goal>
@@ -55,7 +55,7 @@
                         <configuration>
                             <arguments>run mvn-electron-win32</arguments>
                         </configuration>
-                    </execution>
+                    </execution>-->
                 </executions>
             </plugin>
         </plugins>
