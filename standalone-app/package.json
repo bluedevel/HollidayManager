@@ -9,10 +9,10 @@
     "build": "npm install && npm run webpack",
     "start": "node ./node_modules/electron/cli.js .",
     "start-rebuild": "npm run build && npm run start",
-    "package": "npm run build && node ./node_modules/electron-packager/cli.js --overwrite --ignore app --ignore webpack.config.js --ignore *.iml --ignore *.xml --ignore *.md .",
-    "package-win32": "npm run build && node ./node_modules/electron-packager/cli.js --overwrite --platform win32 --ignore app --ignore webpack.config.js --ignore *.iml --ignore *.xml --ignore *.md .",
+    "package": "npm run build && node ./node_modules/electron-packager/cli.js --overwrite --ignore app --ignore webpack.config.js --ignore standalone-app.iml --ignore pom.xml --ignore README.md .",
+    "package-win32": "npm run build && node ./node_modules/electron-packager/cli.js --overwrite --platform win32 --ignore app --ignore webpack.config.js --ignore standalone-app.iml --ignore pom.xml --ignore README.md .",
     "mvn-webpack": "./node/node ./node_modules/webpack/bin/webpack.js",
-    "mvn-electron-win32": "./node/node ./node_modules/electron-packager/cli.js --overwrite --platform win32 --ignore app --ignore webpack.config.js --ignore *.iml --ignore *.xml --ignore *.md ."
+    "mvn-electron-win32": "./node/node ./node_modules/electron-packager/cli.js --overwrite --platform win32 --ignore app --ignore webpack.config.js --ignore standalone-app.iml --ignore pom.xml --ignore README.md ."
   },
   "author": "Robin Engel",
   "license": "Apache-2.0",
