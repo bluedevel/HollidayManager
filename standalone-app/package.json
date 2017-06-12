@@ -4,7 +4,10 @@
   "description": "tbd",
   "main": "main.js",
   "scripts": {
-    "start": "webpack && electron main.js"
+    "webpack": "node ./node_modules/webpack/bin/webpack.js",
+    "build": "npm install && npm run webpack",
+    "start": "node ./node_modules/electron/cli.js .",
+    "start-rebuild": "npm run build && npm run start"
   },
   "author": "Robin Engel",
   "license": "Apache-2.0",
