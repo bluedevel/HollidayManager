@@ -30,12 +30,21 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>npm package-win32</id>
+                        <id>npm mvn-webpack</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run mvn-package-win32</arguments>
+                            <arguments>run mvn-webpack</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm mvn-electron-win32</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run mvn-electron-win32</arguments>
                         </configuration>
                     </execution>
                 </executions>
