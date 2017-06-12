@@ -201,5 +201,7 @@ local.properties
 
 standalone-app/node
 standalone-app/node_modules
+standalone-app/npm-debug.log
 standalone-app/HollidayManager*
 standalone-app/etc
+standalone-app/dist

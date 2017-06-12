@@ -1,5 +1,6 @@
 {
   "name": "holiday-manager",
+  "productName": "HolidayManager",
   "version": "1.0.0",
   "description": "tbd",
   "main": "main.js",
@@ -7,7 +8,9 @@
     "webpack": "node ./node_modules/webpack/bin/webpack.js",
     "build": "npm install && npm run webpack",
     "start": "node ./node_modules/electron/cli.js .",
-    "start-rebuild": "npm run build && npm run start"
+    "start-rebuild": "npm run build && npm run start",
+    "package": "npm run build && node ./node_modules/electron-packager/cli.js --overwrite --ignore app --ignore webpack.config.js --ignore *.iml --ignore *.xml --ignore *.md .",
+    "package-win32": "npm run build && node ./node_modules/electron-packager/cli.js --platform win32 --overwrite --ignore app --ignore webpack.config.js --ignore *.iml --ignore *.xml --ignore *.md ."
   },
   "author": "Robin Engel",
   "license": "Apache-2.0",
@@ -20,9 +23,11 @@
     "css-loader": "^0.28.4",
     "vue-loader": "^12.2.1",
     "vue-template-compiler": "^2.3.4",
+    "babel-core": "^6.25.0",
     "babel-loader": "^7.0.0",
     "babel-preset-electron": "^1.4.15",
     "electron": "^1.6.10",
+    "electron-packager": "^8.7.1",
     "vue": "^2.3.4",
     "materialize-css": "^0.98.2",
     "material-icons-font": "^1.1.1"
