@@ -35,7 +35,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run package-win32</arguments>
+                            <arguments>run mvn-package-win32</arguments>
                         </configuration>
                     </execution>
                 </executions>

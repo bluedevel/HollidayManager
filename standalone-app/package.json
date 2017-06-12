@@ -10,7 +10,8 @@
     "start": "node ./node_modules/electron/cli.js .",
     "start-rebuild": "npm run build && npm run start",
     "package": "npm run build && node ./node_modules/electron-packager/cli.js --overwrite --ignore app --ignore webpack.config.js --ignore *.iml --ignore *.xml --ignore *.md .",
-    "package-win32": "npm run build && node ./node_modules/electron-packager/cli.js --platform win32 --overwrite --ignore app --ignore webpack.config.js --ignore *.iml --ignore *.xml --ignore *.md ."
+    "package-win32": "npm run build && node ./node_modules/electron-packager/cli.js --overwrite --platform win32 --ignore app --ignore webpack.config.js --ignore *.iml --ignore *.xml --ignore *.md .",
+    "mvn-package-win32": "alias node=./node/node node && alias npm='node ./node/node_modules/npm/cli.js' && npm run package-win32"
   },
   "author": "Robin Engel",
   "license": "Apache-2.0",
