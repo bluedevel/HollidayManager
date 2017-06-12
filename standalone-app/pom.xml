@@ -30,6 +30,15 @@
                         </configuration>
                     </execution>
                     <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>npm mvn-webpack</id>
                         <goals>
                             <goal>npm</goal>
