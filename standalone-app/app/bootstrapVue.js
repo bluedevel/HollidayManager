@@ -9,7 +9,7 @@ export default () => {
     const router = new VueRouter({routes});
 
     new Vue({
-        el: 'body',
+        el: 'app',
         render: h => h(App),
         router,
         components: {App}
