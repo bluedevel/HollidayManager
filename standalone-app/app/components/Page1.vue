@@ -1,13 +1,12 @@
 <template>
-    <div id="calendar">{{ message }}</div>
+    <div>
+        <p id="message">{{ message }}</p>
+        <div id="calendar"></div>
+    </div>
 </template>
 
 <script>
     import $ from "jquery"
-
-    $(document).ready(() => {
-
-    });
 
     export default {
         data() {
@@ -17,7 +16,7 @@
         },
 
         mounted() {
-            $('#calendar').css('color', 'red');
+            $('#calendar').fullCalendar({});
         }
     }
 </script>
