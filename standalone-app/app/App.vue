@@ -3,12 +3,13 @@
         <nav>
             <div class="nav-wrapper">
                 <ul class="">
-                    <li><a href="sass.html">Sass</a></li>
-                    <li><a href="badges.html">Components</a></li>
-                    <li><a href="collapsible.html">JavaScript</a></li>
+                    <li><router-link to="/page1">Page 1</router-link></li>
+                    <li><router-link to="/page2">Page 2</router-link></li>
+                    <li><router-link to="/page3">Page 3</router-link></li>
                 </ul>
             </div>
         </nav>
+        <router-view></router-view>
         <i class="material-icons">add</i>
         <p>{{ message }}!!!</p>
     </div>
