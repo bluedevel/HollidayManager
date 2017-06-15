@@ -1,16 +1,10 @@
-import Vue from "vue";
-import App from "./App.vue";
+import bootJQuery from "./bootstrapJQuery";
+import bootMaterialize from "./bootstrapMaterialize";
+import bootVue from "./bootstrapVue";
 
-window.$ = window.jQuery = require('jquery');
-
-require('material-icons-font/material-icons-font.css');
-require('materialize-css/dist/js/materialize.min');
-require('materialize-css/dist/css/materialize.min.css');
+bootJQuery();
+bootMaterialize();
 
 $(document).ready(() => {
-    new Vue({
-        el: 'body',
-        render: h => h(App),
-        components: {App}
-    });
+    bootVue();
 });
