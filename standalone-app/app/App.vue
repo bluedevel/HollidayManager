@@ -12,6 +12,7 @@
         <router-view></router-view>
         <i class="material-icons">add</i>
         <p>{{ message }}!!!</p>
+        <div id="calendar">Test</div>
     </div>
 </template>
 
