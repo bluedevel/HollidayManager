@@ -5,6 +5,8 @@ import bootVue from "./bootstrapVue";
 bootJQuery();
 bootMaterialize();
 
+//require('./css/fullcalendarMaterial.scss');
+
 $(document).ready(() => {
     bootVue();
 });

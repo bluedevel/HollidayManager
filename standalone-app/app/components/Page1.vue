@@ -18,16 +18,28 @@
 
         mounted() {
             const cal = $('#calendar');
-            cal.fullCalendar({});
+            cal.fullCalendar({
+                editable: true,
+                displayEventTime: true,
+                header: false,
+                events: [
+                    {
+                        title: 'This is a Material Design event!',
+                        start: new Date(),
+                        end: new Date(),
+                        color: '#C2185B'
+                    }
+                ]
+            });
 
             // tinker with the style to make the buttons materialize
             // nativ fullcalendar classes: fc-next-button fc-button fc-state-default fc-corner-right btn
-            cal.find('button')
+            /*cal.find('button')
                 .addClass('waves-effect waves-light btn')
                 .removeClass('fc-next-button')
                 .removeClass('fc-button')
                 .removeClass('fc-state-default')
-                .removeClass('fc-corner-right');
+                .removeClass('fc-corner-right');*/
 
         }
     }
