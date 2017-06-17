@@ -1,11 +1,14 @@
 <template>
     <div>
-        <!--<a class="waves-effect waves-light btn">Test</a>
-        <p id="message">{{ message }}</p>-->
+        <nav id="cal-nav">
+            <span class="left">{{ currentDate }}</span>
+            <ul class="right">
+                <li><a v-on:click="today" class="btn">Today</a></li>
+                <li><a v-on:click="prev" class="btn"><i class="material-icons">chevron_left</i></a></li>
+                <li><a v-on:click="next" class="btn"><i class="material-icons">chevron_right</i></a></li>
+            </ul>
+        </nav>
 
-        <div>
-            <span>{{ currentDate }}</span>
-        </div>
         <div id="calendar"></div>
     </div>
 </template>
@@ -14,13 +17,26 @@
     import $ from "jquery"
 
     let cal;
+
     const data = {
         message: "Page 1",
         currentDate: ''
     };
 
-    function viewRender (view, element) {
-        data.currentDate = cal.fullCalendar('getDate').format();
+    function today() {
+        cal.fullCalendar('today');
+    }
+
+    function prev() {
+        cal.fullCalendar('prev');
+    }
+
+    function next() {
+        cal.fullCalendar('next');
+    }
+
+    function viewRender(view, element) {
+        data.currentDate = cal.fullCalendar('getDate').format('LL');
     }
 
     function initCalendar() {
@@ -28,7 +44,7 @@
         cal.fullCalendar({
             editable: true,
             displayEventTime: true,
-            //header: true,
+            header: false,
             events: [
                 {
                     title: 'This is a Material Design event!',
@@ -40,27 +56,34 @@
 
             viewRender
         });
-
-        // tinker with the style to make the buttons materialize
-        // nativ fullcalendar classes: fc-next-button fc-button fc-state-default fc-corner-right btn
-        /*cal.find('button')
-         .addClass('waves-effect waves-light btn')
-         .removeClass('fc-next-button')
-         .removeClass('fc-button')
-         .removeClass('fc-state-default')
-         .removeClass('fc-corner-right');*/
     }
 
     export default {
-
-        data()
-        {
-            return data;
+        data: () => data,
+        methods: {
+            today: today,
+            prev: prev,
+            next: next
         },
-
-        mounted()
-        {
+        mounted() {
             initCalendar();
         }
     }
 </script>
+
+<style type="text/css">
+
+    /* reset materialize navbar appearance but use the formatting */
+    #cal-nav {
+        color: inherit;
+        background-color: inherit;
+        border: inherit;
+        box-shadow: none;
+    }
+
+    #cal-nav span {
+        margin-left: 5px;
+        font-size: 20px;
+    }
+
+</style>
