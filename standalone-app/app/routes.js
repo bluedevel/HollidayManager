@@ -1,7 +1,7 @@
 import Login from "./login/Login.vue";
 import Main from "./main/Main.vue";
 import Overview from "./main/components/Overview.vue";
-import Page2 from "./main/components/Page2.vue";
+import TestLogin from "./main/components/TestLogin.vue";
 import Page3 from "./main/components/Page3.vue";
 
 export default [
@@ -11,7 +11,7 @@ export default [
         path: "/main", component: Main,
         children: [
             {path: "overview", component: Overview},
-            {path: "page2", component: Page2},
+            {path: "testLogin", component: TestLogin},
             {path: "page3", component: Page3}
         ]
     },

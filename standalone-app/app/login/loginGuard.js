@@ -8,10 +8,11 @@ export default function (to, from, next) {
         return;
     }
 
+    console.log(HTTP.defaults.auth);
     // if we have credentials, go on...otherwise to login
-    if (HTTP.auth) {
+    if (HTTP.defaults.auth) {
         next();
     } else {
-        next('/login');
+        next({path: '/login', query: {redirect: to.path}});
     }
 }

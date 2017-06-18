@@ -7,7 +7,7 @@
                         <router-link to="overview">Overview</router-link>
                     </li>
                     <li>
-                        <router-link to="page2">Page 2</router-link>
+                        <router-link to="testLogin">Test Login</router-link>
                     </li>
                     <li>
                         <router-link to="page3">Page 3</router-link>
