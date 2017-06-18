@@ -1,8 +1,7 @@
-import axios from 'axios'
+import axios from "axios";
 
-export const HTTP = axios.create({
-    baseURL: `http://localhost:8080/`,
-    headers: {
-        //Authorization: 'Bearer {token}'
-    }
+export default axios.create({
+    baseURL: 'http://localhost:8080/',
+    //withCredentials: true,
+    responseType: 'json'
 });
