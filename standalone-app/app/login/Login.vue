@@ -31,11 +31,10 @@
     };
 
     function login(e) {
-        console.log(data.auth.username);
         HTTP.defaults.auth = data.auth;
         HTTP.get('/login')
             .then(() => {
-                console.log(this.$route.query.redirect);
+                HTTP.defaults.auth = null;
                 this.$router.push(this.$route.query.redirect);
             })
             .catch((err) => {

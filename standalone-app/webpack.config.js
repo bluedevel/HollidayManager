@@ -33,7 +33,8 @@ module.exports = {
                 loader: 'url-loader'
             }
         ]
-    }/*,
+    },
+    target: 'electron'/*,
      plugins: [
      new webpack.ExternalsPlugin('commonjs', [
      'electron'

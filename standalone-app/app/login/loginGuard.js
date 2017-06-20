@@ -1,4 +1,4 @@
-import HTTP from "../http";
+import {remote} from 'electron'
 
 export default function (to, from, next) {
 
@@ -8,11 +8,11 @@ export default function (to, from, next) {
         return;
     }
 
-    console.log(HTTP.defaults.auth);
-    // if we have credentials, go on...otherwise to login
-    if (HTTP.defaults.auth) {
-        next();
-    } else {
-        next({path: '/login', query: {redirect: to.path}});
-    }
+    remote.session.defaultSession.cookies.get({name: 'JSESSIONID'}, (error, cookies) => {
+        if (error || !(cookies[0])) {
+            next({path: '/login', query: {redirect: to.path}});
+        } else {
+            next();
+        }
+    });
 }
