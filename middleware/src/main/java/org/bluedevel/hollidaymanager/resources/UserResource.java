@@ -5,6 +5,7 @@ import org.bluedevel.hollidaymanager.PasswordHasher;
 import org.bluedevel.hollidaymanager.daos.DepartmentDao;
 import org.bluedevel.hollidaymanager.daos.UserDao;
 import org.bluedevel.hollidaymanager.models.Department;
+import org.bluedevel.hollidaymanager.models.User;
 import org.bluedevel.hollidaymanager.resources.converter.NewUserConverter;
 import org.bluedevel.hollidaymanager.resources.converter.UserConverter;
 import org.bluedevel.hollidaymanager.resources.dto.NewUserDto;
@@ -18,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -60,7 +63,12 @@ public class UserResource {
         this.newUserConverter = newUserConverter;
     }
 
-    @RequestMapping("/{name}")
+    @RequestMapping("/current")
+    public UserDto getCurrentUser(Principal principal) {
+        return userConverter.toDto((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+    }
+
+    @RequestMapping("/all/{name}")
     public UserDto getUser(@PathVariable("name") String name) throws UserNotFoundException {
         return userDao.findByUsername(name)
                 .map(userConverter::toDto)
