@@ -15,17 +15,19 @@ public class UserResourceTest extends ResourceBaseTest {
 
     @Test
     public void getUser() throws Exception {
-        perform(get("/users/" + this.userHelga.getUsername()))
+        perform(get("/users/all/" + this.userHelga.getUsername()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username", is(this.userHelga.getUsername())));
     }
 
     @Test
     public void getUserNotFound() throws Exception {
-        perform(get("/users/nonexistent"))
+        perform(get("/users/all/nonexistent"))
                 .andExpect(status().isNotFound());
     }
 
+    // TODO test /users/current
+    
     @Test
     public void addUser() throws Exception {
         perform(put("/users"), this.newUserFranz)
